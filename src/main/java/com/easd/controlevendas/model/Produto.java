@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Setter
 @Getter
@@ -24,6 +22,17 @@ public class Produto {
     @JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id"),
     inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private List<Categoria> categorias = new ArrayList<>();
+
+    @OneToMany(mappedBy = "id.produto")
+    private Set<ItemPedido> itens = new HashSet<>();
+
+    public List<Pedido> pedidos(){
+        List<Pedido> pedidos = new ArrayList<>();
+        for (ItemPedido x: itens) {
+            pedidos.add(x.getId().getPedido());
+        }
+        return pedidos;
+    }
 
     public Produto() {
     }

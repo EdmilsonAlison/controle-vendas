@@ -1,5 +1,6 @@
 package com.easd.controlevendas.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class Endereco implements Serializable {
     private String complemento;
     private String bairro;
     private String cep;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
