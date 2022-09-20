@@ -1,6 +1,7 @@
 package com.easd.controlevendas.dto;
 
 import com.easd.controlevendas.model.Endereco;
+import com.easd.controlevendas.model.Pedido;
 import com.easd.controlevendas.model.enums.TipoCliente;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,4 +22,5 @@ public class ClienteDto {
     private TipoCliente tipoCliente;
     private List<Endereco> enderecos = new ArrayList<>();
     private Set<String> telefones = new HashSet<>();
+    private List<Pedido> pedidos =  new ArrayList<>();
 }

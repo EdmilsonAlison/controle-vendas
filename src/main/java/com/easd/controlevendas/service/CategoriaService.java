@@ -1,6 +1,7 @@
 package com.easd.controlevendas.service;
 
 import com.easd.controlevendas.dto.CategoriaDto;
+import com.easd.controlevendas.handler.exceptions.DeleteClassException;
 import com.easd.controlevendas.handler.exceptions.NotFoundException;
 import com.easd.controlevendas.model.Categoria;
 import com.easd.controlevendas.repository.CategoriaRepository;
@@ -45,7 +46,11 @@ public class CategoriaService {
         if (categoria.isEmpty()){
             throw  new NotFoundException("Categorie not found");
         }
-        catRepo.deleteById(id);
+        if(categoria.get().getProdutos() != null){
+            throw  new DeleteClassException("Categoria possuí produtos registrados");
+        }
+            catRepo.deleteById(id);
+
     }
 
 

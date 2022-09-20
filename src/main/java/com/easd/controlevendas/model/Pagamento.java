@@ -1,6 +1,8 @@
 package com.easd.controlevendas.model;
 
 import com.easd.controlevendas.model.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +25,7 @@ public abstract class Pagamento implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private EstadoPagamento estadoPagamento;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId

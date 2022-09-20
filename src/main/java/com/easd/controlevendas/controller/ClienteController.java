@@ -21,13 +21,13 @@ public class ClienteController {
 
     @GetMapping
     public ResponseEntity<List<ClienteDto>> listar(){
-        List<ClienteDto> clienteDtos = clienteService.listarTodasCategorias();
+        List<ClienteDto> clienteDtos = clienteService.listarTodosCLientes();
         return new ResponseEntity<>(clienteDtos, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<ClienteDto>> buscarCategoriaPorId(@PathVariable Integer id){
-        Optional<ClienteDto> clienteDto = clienteService.buscarCategoriaPorId(id);
+    public ResponseEntity<Optional<ClienteDto>> buscarClientePorId(@PathVariable Integer id){
+        Optional<ClienteDto> clienteDto = clienteService.buscarClientePorId(id);
         return new ResponseEntity<>(clienteDto, HttpStatus.OK);
     }
 

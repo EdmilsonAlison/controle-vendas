@@ -2,6 +2,7 @@ package com.easd.controlevendas.service;
 
 import com.easd.controlevendas.dto.CategoriaDto;
 import com.easd.controlevendas.dto.ClienteDto;
+import com.easd.controlevendas.handler.exceptions.DeleteClassException;
 import com.easd.controlevendas.handler.exceptions.NotFoundException;
 import com.easd.controlevendas.model.Categoria;
 import com.easd.controlevendas.model.Cliente;
@@ -21,13 +22,13 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public List<ClienteDto> listarTodasCategorias(){
+    public List<ClienteDto> listarTodosCLientes(){
         List<Cliente> clienteList = clienteRepository.findAll();
         return clienteList.stream().map(cliente -> new ModelMapper().map(cliente, ClienteDto.class))
                 .collect(Collectors.toList());
     }
 
-    public Optional<ClienteDto> buscarCategoriaPorId(Integer id){
+    public Optional<ClienteDto> buscarClientePorId(Integer id){
         Optional<Cliente> cliente = clienteRepository.findById(id);
         if(cliente.isEmpty()){
             throw new NotFoundException("Cliente not found");
@@ -45,7 +46,11 @@ public class ClienteService {
     public void deletar( Integer id){
         Optional<Cliente> cliente = clienteRepository.findById(id);
         if (cliente.isEmpty()){
-            throw  new NotFoundException("Categorie not found");
+            throw  new NotFoundException("Client not found");
+        }
+
+        if(cliente.get().getPedidos() != null){
+            throw  new DeleteClassException("Cliente possuí pedidos registrados");
         }
         clienteRepository.deleteById(id);
     }
