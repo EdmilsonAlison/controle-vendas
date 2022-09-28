@@ -41,5 +41,4 @@ public abstract class Pagamento implements Serializable {
         this.pedido = pedido;
     }
 
-
 }

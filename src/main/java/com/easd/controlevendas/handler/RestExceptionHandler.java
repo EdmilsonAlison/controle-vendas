@@ -5,6 +5,7 @@ import com.easd.controlevendas.handler.exceptions.DeleteClassException;
 import com.easd.controlevendas.handler.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -22,6 +23,14 @@ public class RestExceptionHandler {
     public ResponseEntity<ErrorMessage> deleteClassException(DeleteClassException exception){
         ErrorMessage errorMessage = new ErrorMessage("Impossivel deletar"
                 , exception.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorMessage> validation(MethodArgumentNotValidException exception){
+        ErrorMessage errorMessage = new ErrorMessage("Argumento inválido"
+                , "Erro de validação", HttpStatus.BAD_REQUEST.value());
+
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 }

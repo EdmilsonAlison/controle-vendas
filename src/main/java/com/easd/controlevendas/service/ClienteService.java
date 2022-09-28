@@ -10,6 +10,9 @@ import com.easd.controlevendas.repository.CategoriaRepository;
 import com.easd.controlevendas.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,6 +67,11 @@ public class ClienteService {
             return clienteDto;
         }
         throw new NotFoundException("Cliente não existe");
+    }
+
+    public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction ){
+        PageRequest p = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        return clienteRepository.findAll(p);
     }
 
 

@@ -2,9 +2,12 @@ package com.easd.controlevendas.controller;
 
 import com.easd.controlevendas.dto.CategoriaDto;
 import com.easd.controlevendas.dto.ClienteDto;
+import com.easd.controlevendas.model.Categoria;
+import com.easd.controlevendas.model.Cliente;
 import com.easd.controlevendas.service.CategoriaService;
 import com.easd.controlevendas.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

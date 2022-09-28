@@ -5,7 +5,12 @@ import com.easd.controlevendas.handler.exceptions.DeleteClassException;
 import com.easd.controlevendas.handler.exceptions.NotFoundException;
 import com.easd.controlevendas.model.Categoria;
 import com.easd.controlevendas.repository.CategoriaRepository;
+import net.bytebuddy.matcher.StringMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,6 +65,11 @@ public class CategoriaService {
         categoria = catRepo.save(categoria);
         categoria.setId(catDto.getId());
         return catDto;
+    }
+
+    public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction ){
+        PageRequest p = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        return catRepo.findAll(p);
     }
 
 
